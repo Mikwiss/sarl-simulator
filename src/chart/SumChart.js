@@ -4,24 +4,38 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
-const SumChart = ({ abscissa, irppValues }) => {
+const SumChart = ({ max, abscissa, irppValues, urssaf, is }) => {
 
     const data = {
         labels: abscissa,
         datasets: [
             {
                 fill: true,
-                label: 'Sum function with max(0, min(R, T[i+1]) - T[i])',
+                label: 'Revenue du dirigeant',
+                data: abscissa,
+                borderColor: 'rgba(75,192,192,1)',
+                backgroundColor: 'rgba(192,0,192,0.2)',
+            },
+            {
+                fill: true,
+                label: 'IRPP',
                 data: irppValues,
                 borderColor: 'rgba(75,192,192,1)',
                 backgroundColor: 'rgba(0,192,192,0.2)',
             },
             {
                 fill: true,
-                label: 'Revenue du dirigeant',
-                data: abscissa,
+                label: 'Urssaf',
+                data: urssaf,
                 borderColor: 'rgba(75,192,192,1)',
-                backgroundColor: 'rgba(192,0,192,0.2)',
+                backgroundColor: 'rgba(192,192,0,0.2)',
+            },
+            {
+                fill: true,
+                label: 'IS',
+                data: is,
+                borderColor: 'rgba(75,192,192,1)',
+                backgroundColor: 'rgba(192,192,192,0.2)',
             }
         ],
     };
@@ -34,22 +48,32 @@ const SumChart = ({ abscissa, irppValues }) => {
             },
             title: {
                 display: true,
-                text: 'Plot of the sum function with max(0, min(R, T[i+1]) - T[i])',
+                text: 'IRPP',
             },
+            tooltip: {
+                mode: 'index'
+            },
+        },
+        interaction: {
+            mode: 'nearest',
+            axis: 'x',
+            intersect: false
         },
         scales: {
             x: {
                 title: {
                     display: true,
-                    text: 'Month'
-                }
+                    text: 'Revenue du dirigeant'
+                },
+                max: max,
             },
             y: {
                 stacked: true,
                 title: {
                     display: true,
-                    text: 'Value'
-                }
+                    text: 'Euros'
+                },
+                max: max,
             }
         }
     };
