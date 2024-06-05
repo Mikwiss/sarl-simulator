@@ -14,14 +14,14 @@ const SumChart = ({ abscissa, irppValues }) => {
                 label: 'Sum function with max(0, min(R, T[i+1]) - T[i])',
                 data: irppValues,
                 borderColor: 'rgba(75,192,192,1)',
-                backgroundColor: 'rgba(75,192,192,0.2)',
+                backgroundColor: 'rgba(0,192,192,0.2)',
             },
             {
                 fill: true,
                 label: 'Revenue du dirigeant',
                 data: abscissa,
                 borderColor: 'rgba(75,192,192,1)',
-                backgroundColor: 'rgba(75,192,192,0.2)',
+                backgroundColor: 'rgba(192,0,192,0.2)',
             }
         ],
     };
@@ -37,6 +37,21 @@ const SumChart = ({ abscissa, irppValues }) => {
                 text: 'Plot of the sum function with max(0, min(R, T[i+1]) - T[i])',
             },
         },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Month'
+                }
+            },
+            y: {
+                stacked: true,
+                title: {
+                    display: true,
+                    text: 'Value'
+                }
+            }
+        }
     };
 
     return <Line data={data} options={options} />;
