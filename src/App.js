@@ -9,20 +9,30 @@ function App() {
     const [CA, setCA] = useState(100000);
 
     // Range of R values
-    const R_values = Array.from({ length: 50 }, (_, i) => i * 2000);
+    let R_values = Array.from({ length: 50 }, (_, i) => i * 2000);
     // Compute the sum for each R value
     const irpp = R_values.map(R => calculateIrpp(R));
     const urssaf = R_values.map(R => R * 0.45);
 
-    const is = R_values.map(R => {
-        let resultatNet = CA - R - urssaf[R_values.indexOf(R)] - irpp[R_values.indexOf(R)];
-        let u =  calculateIs(resultatNet);
-        console.log(CA + " - " + R + " - " +  urssaf[R_values.indexOf(R)] + " - " +  irpp[R_values.indexOf(R)] + " = " +  resultatNet + " => " + u)
-
-        return u;
+    const resultatNet = R_values.map(R => {
+        return CA - R - urssaf[R_values.indexOf(R)];
     });
 
-  return (
+    const is = R_values.map(R => {
+        let r = resultatNet[R_values.indexOf(R)];
+        return calculateIs(r);
+    });
+
+    const compte = R_values.map(R =>
+        CA - R - urssaf[R_values.indexOf(R)] - is[R_values.indexOf(R)]
+    );
+
+    let limitX = compte.findIndex(value => value < 0);
+
+    R_values = Array.from(R_values).slice(0, limitX);
+
+    console.log(limitX)
+    return (
     <div className="App">
       <header className="App-header">
         <div>
@@ -34,7 +44,7 @@ function App() {
                 placeholder="Enter CA value"
             />
 
-          <SumChart max={CA} abscissa={R_values} irppValues={irpp} urssaf={urssaf} is={is}/>
+          <SumChart max={CA} limitX={limitX} abscissa={R_values} irppValues={irpp} urssaf={urssaf} is={is} compte={compte}/>
 
         </div>
       </header>

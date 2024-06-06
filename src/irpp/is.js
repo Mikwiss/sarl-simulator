@@ -1,6 +1,6 @@
 // Define the parameters with the new function
 const T = [0, 42500, Infinity];
-const tau = [0.15, 0.15, 0.25];
+const tau = [0.15, 0.25, 0.25];
 
 // Function to compute the sum from i=0 to i=5 with max(0, min(R, T[i+1]) - T[i])
 const calculateIs = (R) => {

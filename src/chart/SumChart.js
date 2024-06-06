@@ -4,18 +4,12 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
-const SumChart = ({ max, abscissa, irppValues, urssaf, is }) => {
+const SumChart = ({ max, abscissa, irppValues, urssaf, is, compte }) => {
 
     const data = {
         labels: abscissa,
         datasets: [
-            {
-                fill: true,
-                label: 'Revenue du dirigeant',
-                data: abscissa,
-                borderColor: 'rgba(75,192,192,1)',
-                backgroundColor: 'rgba(192,0,192,0.2)',
-            },
+
             {
                 fill: true,
                 label: 'IRPP',
@@ -36,7 +30,14 @@ const SumChart = ({ max, abscissa, irppValues, urssaf, is }) => {
                 data: is,
                 borderColor: 'rgba(75,192,192,1)',
                 backgroundColor: 'rgba(192,192,192,0.2)',
-            }
+            },
+            {
+                fill: true,
+                label: 'compte',
+                data: compte,
+                borderColor: 'rgba(75,192,192,1)',
+                backgroundColor: 'rgba(0,0,192,0.2)',
+            },
         ],
     };
 
@@ -73,6 +74,7 @@ const SumChart = ({ max, abscissa, irppValues, urssaf, is }) => {
                     display: true,
                     text: 'Euros'
                 },
+                min: 0,
                 max: max,
             }
         }
